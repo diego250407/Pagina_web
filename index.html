@@ -1,0 +1,109 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Control del Carro</title>
+  <link rel="stylesheet" href="Nose.css">
+</head>
+<body>
+  <h1>_</h1>
+
+  <!-- LED indicador -->
+  <div id="led-container">
+    <div id="led"></div>
+    <p id="led-text">LED apagado</p>
+  </div>
+
+  <!-- Área de control -->
+  <div id="controller">
+    <!-- Flechas izquierda (adelante / atrás) -->
+    <button id="up" class="arrow up"></button>
+    <button id="down" class="arrow down"></button>
+
+    <!-- Flechas derecha (izquierda / derecha) -->
+    <button id="left" class="arrow left"></button>
+    <button id="right" class="arrow right"></button>
+  </div>
+
+<script src="juasjuas.js"></script>
+
+<!-- 🔽 Pega aquí el nuevo código -->
+<script>
+window.addEventListener("load", () => {
+  const led = document.getElementById("led");
+  const ledText = document.getElementById("led-text");
+  const controller = document.getElementById("controller");
+
+  const centerButtons = document.createElement("div");
+  centerButtons.style.position = "absolute";
+  centerButtons.style.top = "50%";
+  centerButtons.style.left = "50%";
+  centerButtons.style.transform = "translate(-50%, -50%)";
+  centerButtons.style.display = "flex";
+  centerButtons.style.gap = "20px";
+  centerButtons.style.zIndex = "5";
+
+  const frontBtn = document.createElement("button");
+  const rearBtn = document.createElement("button");
+
+  frontBtn.textContent = "Luces delanteras";
+  rearBtn.textContent = "Luces traseras";
+
+  [frontBtn, rearBtn].forEach(btn => {
+    btn.style.width = "150px";
+    btn.style.height = "50px";
+    btn.style.border = "2px solid white";
+    btn.style.background = "rgba(255,255,255,0.1)";
+    btn.style.color = "white";
+    btn.style.fontSize = "14px";
+    btn.style.borderRadius = "10px";
+    btn.style.cursor = "pointer";
+    btn.style.transition = "all 0.2s";
+    btn.addEventListener("mouseenter", () => btn.style.background = "rgba(255,255,255,0.25)");
+    btn.addEventListener("mouseleave", () => btn.style.background = "rgba(255,255,255,0.1)");
+  });
+
+  let frontOn = false;
+  let rearOn = false;
+
+  function updateLED() {
+    if (frontOn && rearOn) {
+      led.style.background = "#ff00ff";
+      led.style.boxShadow = "0 0 25px #ff00ff";
+      ledText.textContent = "💡 Luces delanteras y traseras encendidas";
+    } else if (frontOn) {
+      led.style.background = "#ffff00";
+      led.style.boxShadow = "0 0 20px #ffff00";
+      ledText.textContent = "💡 Luces delanteras encendidas";
+    } else if (rearOn) {
+      led.style.background = "orange";
+      led.style.boxShadow = "0 0 20px orange";
+      ledText.textContent = "🔴 Luces traseras encendidas";
+    } else {
+      led.style.background = "gray";
+      led.style.boxShadow = "0 0 15px rgba(255,255,255,0.3)";
+      ledText.textContent = "LED apagado";
+    }
+  }
+
+  frontBtn.addEventListener("click", () => {
+    frontOn = !frontOn;
+    frontBtn.textContent = frontOn ? "Apagar delanteras" : "Luces delanteras";
+    updateLED();
+  });
+
+  rearBtn.addEventListener("click", () => {
+    rearOn = !rearOn;
+    rearBtn.textContent = rearOn ? "Apagar traseras" : "Luces traseras";
+    updateLED();
+  });
+
+  centerButtons.appendChild(frontBtn);
+  centerButtons.appendChild(rearBtn);
+  controller.appendChild(centerButtons);
+});
+</script>
+</body>
+</html>
+
