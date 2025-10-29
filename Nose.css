@@ -1,0 +1,140 @@
+ body {
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  text-align: center;
+  padding-top: 40px;
+  overflow: hidden;
+}
+
+h1 {
+  margin-bottom: 40px;
+  font-size: 36px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* LED indicador */
+#led-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#led {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: gray;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  margin-bottom: 10px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+#led.on {
+  background: #00ff00;
+  box-shadow: 0 0 20px #00ff00;
+}
+
+/* Contenedor general */
+#controller {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+}
+
+/* Flechas estilo videojuego */
+.arrow {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: transparent;
+  border: 6px solid white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.arrow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  border-top: 6px solid white;
+  border-right: 6px solid white;
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Rotaciones */
+.up::before { transform: translate(-50%, -50%) rotate(-45deg); }
+.down::before { transform: translate(-50%, -50%) rotate(135deg); }
+.left::before { transform: translate(-50%, -50%) rotate(-135deg); }
+.right::before { transform: translate(-50%, -50%) rotate(45deg); }
+
+/* Efectos */
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
+}
+.arrow:active {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(0.9);
+}
+
+/* 📍 Ubicación de botones a los extremos */
+#up {
+  top: 80px;
+  left: 60px;
+}
+
+#down {
+  top: 260px;
+  left: 60px;
+}
+
+#left {
+  top: 150px;
+  right: 160px; /* Ajustado: más cerca del centro */
+}
+
+#right {
+  top: 150px;
+  right: 10px; /* Ajustado: más cerca del centro */
+}
+
+/* Responsivo para móviles */
+@media (max-width: 700px) {
+  #controller {
+    height: 400px;
+  }
+
+  .arrow {
+    width: 70px;   /* más pequeños para móviles */
+    height: 70px;
+    border-width: 4px;
+  }
+
+  #up {
+    top: 60px;
+    left: 30px;
+  }
+
+  #down {
+    top: 200px;
+    left: 30px;
+  }
+
+  #left {
+    top: 120px;
+    right: 120px; /* Ajustado: más cerca del centro */
+  }
+
+  #right {
+    top: 120px;
+    right: 10px; /* Ajustado: más cerca del centro */
+  }
+}
